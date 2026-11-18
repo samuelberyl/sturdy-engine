@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TAPHY FITNESS 💪🔥 | 30 Days Challenge - Homabay</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#0a0a0a;color:white;padding-bottom:80px}
+header{background:linear-gradient(135deg,#ff6600,#ffcc00);color:#111;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20}
+header b{font-size:18px}
+header button{background:#111;color:white;border:none;padding:8px 14px;border-radius:20px;font-weight:bold;cursor:pointer}
+.hero{padding:20px 16px;text-align:center}
+.hero h1{font-size:30px;line-height:1.1}
+.hero h1 span{color:#ffcc00}
+.hero p{color:#aaa;font-size:13px;margin:8px 0}
+.progress-card{background:#1e1e1e;border:1px solid #333;border-radius:18px;padding:16px;margin:0 16px 12px}
+.progress-card h3{margin-bottom:10px}
+.bar{height:12px;background:#333;border-radius:6px;overflow:hidden;margin:8px 0}
+.bar div{height:100%;background:linear-gradient(90deg,#ff6600,#ffcc00);width:40%;border-radius:6px;transition:width 0.5s}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:10px}
+.day{aspect-ratio:1;background:#222;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;cursor:pointer;border:1px solid #333}
+.day.done{background:#00a651;color:white}
+.day.today{background:#ffcc00;color:#111;border:2px solid white}
+.workout{background:#1e1e1e;border:1px solid #333;border-radius:16px;padding:14px;margin:0 16px 10px;display:flex;gap:12px;align-items:center;cursor:pointer}
+.workout:active{transform:scale(0.99)}
+.workout .icon{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.workout b{font-size:14px;display:block}
+.workout p{font-size:12px;color:#888}
+.workout .check{width:32px;height:32px;border-radius:50%;border:2px solid #555;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;cursor:pointer}
+.workout .check.done{background:#00a651;border-color:#00a651;color:white}
+.card{background:#1e1e1e;border-radius:18px;padding:16px;margin:0 16px 12px;border:1px solid #333}
+.card h3{margin-bottom:8px}
+.card p{font-size:13px;color:#aaa;line-height:1.6}
+input{width:100%;padding:12px;border-radius:12px;border:1px solid #333;background:#111;color:white;margin:6px 0;outline:none}
+.btn{width:100%;padding:13px;border:none;border-radius:12px;font-weight:bold;cursor:pointer}
+.bottom-nav{position:fixed;bottom:0;left:0;width:100%;background:#111;border-top:1px solid #333;padding:10px;display:flex;justify-content:space-around;font-size:11px;z-index:30}
+.bottom-nav div{text-align:center;cursor:pointer;color:#888}
+.bottom-nav div.active{color:#ffcc00;font-weight:bold}
+.bottom-nav div span{display:block;font-size:22px}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:99;justify-content:center;align-items:flex-end}
+.modalBox{background:#1e1e1e;width:100%;max-width:500px;border-radius:20px 20px 0 0;padding:20px;max-height:85vh;overflow-y:auto}
+.modalBox button{padding:11px 16px;border-radius:10px;border:none;font-weight:bold;cursor:pointer;margin:5px}
+</style>
+</head>
+<body>
+
+<header><b>💪 TAPHY FITNESS</b><button onclick="showToast('🔥 Day 12/30 - Keep Going!')">🔥 Day 12</button></header>
+
+<div class="hero">
+<h1>30 DAYS<br><span>CHALLENGE! 💪🔥</span></h1>
+<p>Transform Your Body! • No Gym Needed • Home Workout!<br>🟢 500+ People Joined • Day 12 Today!</p>
+</div>
+
+<div class="progress-card">
+<h3>📊 Your Progress - Day 12/30</h3>
+<p style="font-size:13px;color:#aaa">40% Done! Keep going! 💪</p>
+<div class="bar"><div id="progressBar"></div></div>
+<div style="display:flex;justify-content:space-between;font-size:12px;color:#888"><span>Day 1</span><span id="progressText">Day 12/30 (40%)</span><span>Day 30</span></div>
+<h3 style="margin-top:14px">📅 30 Days Calendar</h3>
+<div class="days" id="daysGrid"></div>
+<p style="font-size:11px;color:#888;margin-top:8px">🟢 = Done • 🟡 = Today • Click day to mark done!</p>
+</div>
+
+<div style="padding:0 16px 10px"><h3>💪 Today's Workout - Day 12</h3></div>
+
+<div class="workout" onclick="toggleWorkout(this)"><div class="icon" style="background:#ff6600">🏃</div><div style="flex:1"><b>Running / Walking</b><p>20 mins • Homabay Town / Lake</p></div><div class="check">✓</div></div>
+<div class="workout" onclick="toggleWorkout(this)"><div class="icon" style="background:#00a651">💪</div><div style="flex:1"><b>Push Ups</b><p>3 Sets x 15 reps</p></div><div class="check">✓</div></div>
+<div class="workout" onclick="toggleWorkout(this)"><div class="icon" style="background:#0066cc">🦵</div><div style="flex:1"><b>Squats</b><p>3 Sets x 20 reps</p></div><div class="check">✓</div></div>
+<div class="workout" onclick="toggleWorkout(this)"><div class="icon" style="background:#ff0055">🧘</div><div style="flex:1"><b>Plank</b><p>1 min x 3 times</p></div><div class="check">✓</div></div>
+<div class="workout" onclick="toggleWorkout(this)"><div class="icon" style="background:#6c5ce7">🤸</div><div style="flex:1"><b>Jumping Jacks</b><p>50 reps</p></div><div class="check">✓</div></div>
+
+<div class="card">
+<h3>🧮 BMI Calculator - Angalia Uzito Wako!</h3>
+<p>Weka height na weight:</p>
+<input type="number" id="height" placeholder="Height (cm)... e.g. 170" value="170">
+<input type="number" id="weight" placeholder="Weight (kg)... e.g. 65" value="65">
+<button class="btn" style="background:#ffcc00;color:#111" onclick="calcBMI()">Calculate BMI →</button>
+<p id="bmiResult" style="font-size:16px;font-weight:bold;text-align:center;margin-top:10px;color:#ffcc00"></p>
+</div>
+
+<div class="card" style="background:linear-gradient(135deg,#ff6600,#ffcc00);color:#111;border:none">
+<h3>🏆 LEADERBOARD - Top 5 Homabay!</h3>
+<p style="color:#333">🥇 <b>Favour</b> - Day 28/30 • 93%<br>🥈 <b>Ryan</b> - Day 25/30 • 83%<br>🥉 <b>Wesley</b> - Day 22/30 • 73%<br>4. <b>Pastor Jack</b> - Day 20/30 • 66%<br>5. <b>Taphy Samson</b> - Day 12/30 • 40% - YOU!</p>
+</div>
+
+<div class="card">
+<h3>🥗 Diet Plan - Leo</h3>
+<p>🌅 <b>Breakfast:</b> Uji + Mayai 2<br>☀️ <b>Lunch:</b> Ugali + Sukuma + Nyama<br>🌙 <b>Dinner:</b> Chapati + Beans<br>💧 <b>Water:</b> 8 Glasses - Drink sana!</p>
+</div>
+
+<div style="text-align:center;color:#888;font-size:12px;padding:10px">Taphy Fitness • Homabay • Made by Taphy Samson 🇰🇪<br>No Pain, No Gain! 💪</div>
+
+<div class="bottom-nav">
+<div class="active"><span>🏠</span>Home</div>
+<div onclick="showToast('💪 Workout leo: 5 exercises!')"><span>💪</span>Workout</div>
+<div onclick="showToast('🥗 Diet: Uji + Mayai!')"><span>🥗</span>Diet</div>
+<div onclick="showToast('🏆 You: Day 12/30!')"><span>🏆</span>Leaderboard</div>
+<div onclick="showToast('👤 Taphy Samson - Day 12')"><span>👤</span>Profile</div>
+</div>
+
+<div class="modal" id="modal"><div class="modalBox"><div id="modalContent"></div><button style="background:white;color:#111;width:100%" onclick="closeModal()">Close ✕</button></div></div>
+<div id="toast" style="position:fixed;top:70px;left:50%;transform:translateX(-50%);background:#ffcc00;color:#111;padding:10px 18px;border-radius:20px;font-weight:bold;font-size:13px;z-index:100;display:none"></div>
+
+<script>
+let doneDays=12;
+function showToast(m){ let t=document.getElementById('toast'); t.innerText=m; t.style.display='block'; setTimeout(()=>t.style.display='none',2500); }
+function renderDays(){
+  let g=document.getElementById('daysGrid'); g.innerHTML='';
+  for(let i=1;i<=30;i++){
+    let d=document.createElement('div');
+    d.className='day'+(i<=doneDays?' done':'')+(i==doneDays+1?' today':'');
+    d.innerText=i;
+    d.onclick=()=>{ if(i<=doneDays+1){ doneDays=i; updateProgress(); renderDays(); showToast('🎉 Day '+i+' Done! Keep Going!'); } else { showToast('⏳ Maliza Day '+(doneDays+1)+' kwanza!'); } };
+    g.appendChild(d);
+  }
+}
+function updateProgress(){
+  let pct=Math.round(doneDays/30*100);
+  document.getElementById('progressBar').style.width=pct+'%';
+  document.getElementById('progressText').innerText='Day '+doneDays+'/30 ('+pct+'%)';
+}
+function toggleWorkout(el){
+  let c=el.querySelector('.check');
+  c.classList.toggle('done');
+  if(c.classList.contains('done')) showToast('✅ Exercise Done! Good Job! 💪');
+  else showToast('Exercise unmarked');
+}
+function calcBMI(){
+  let h=parseFloat(document.getElementById('height').value)/100;
+  let w=parseFloat(document.getElementById('weight').value);
+  let bmi=w/(h*h);
+  let status=bmi<18.5?'Underweight - Kula zaidi!':bmi<25?'Normal - Poa sana! ✅':bmi<30?'Overweight - Fanya mazoezi!':'Obese - Anza challenge leo!';
+  document.getElementById('bmiResult').innerText='BMI: '+bmi.toFixed(1)+' - '+status;
+}
+function closeModal(){ document.getElementById('modal').style.display='none'; }
+renderDays(); updateProgress(); calcBMI();
+</script>
+</body>
+</html>
